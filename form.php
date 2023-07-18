@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CryptoTTTable Form</title>
+    <title>Edit Crypto Trade Tracking Table Data Form</title>
 </head>
 <body>
 

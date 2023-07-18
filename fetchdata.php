@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CryptoTTTable Data</title>
+    <title>Edit Crypto Trade Tracking Table Data Data</title>
     <style>
         table {
             border-collapse: collapse;
