@@ -33,6 +33,7 @@ if (isset($_GET['id'])) {
         $coinName = $row["coin_name"];
         $cSymbol = $row["c_symbol"];
         $entryPrice = $row["entry_price"];
+        $quantity = $row["quantity"];
         $firstTarget = $row["first_target"];
         $secondTarget = $row["second_target"];
         $stopLoss = $row["stop_loss"];
@@ -47,6 +48,8 @@ if (isset($_GET['id'])) {
         echo "<input type='text' name='cSymbol' value='$cSymbol' required><br><br>";
         echo "<label for='entryPrice'>Entry Price:</label>";
         echo "<input type='text' name='entryPrice' value='$entryPrice' required><br><br>";
+        echo "<label for='quantity'>Coin Quantity:</label>";
+        echo "<input type='text' name='quantity' value='$quantity' required><br><br>";
         echo "<label for='firstTarget'>First Target:</label>";
         echo "<input type='text' name='firstTarget' value='$firstTarget' required><br><br>";
         echo "<label for='secondTarget'>Second Target:</label>";

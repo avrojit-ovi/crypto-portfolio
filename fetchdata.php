@@ -11,7 +11,7 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Crypto Trade Tracking Table Data Data</title>
+    <title>Edit Crypto Trade Tracking Table Data</title>
     <style>
         table {
             border-collapse: collapse;
@@ -21,6 +21,9 @@ if (!isset($_SESSION['username'])) {
             padding: 8px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+        }
+        td#pl_row {
+            font-weight: bold;
         }
         .edit-btn, .delete-btn {
             display: inline-block;
@@ -71,10 +74,13 @@ $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     echo "<table>";
-    echo "<tr><th>ID</th><th>Coin Name</th><th>Coin Symbol</th><th>Coin Price</th><th>Entry Price</th><th>First Target</th><th>Second Target</th><th>Stop Loss</th><th>Actions</th></tr>";
+    echo "<tr><th>ID</th><th>Coin Name</th><th>Coin Symbol</th><th>Coin Price</th><th>Entry Price</th><th>Coin Quantity</th><th>% Change</th><th>P&L</th><th>First Target</th><th>Second Target</th><th>Stop Loss</th><th>Actions</th></tr>";
     
     // Loop through each row of data
     while ($row = $result->fetch_assoc()) {
+        $entryPrice = floatval($row["entry_price"]);
+        $coinPrice = 0; // Initialize coin_price to 0
+        
         echo "<tr>";
         echo "<td>" . $row["id"] . "</td>";
         echo "<td>" . $row["coin_name"] . "</td>";
@@ -83,6 +89,9 @@ if ($result->num_rows > 0) {
         echo "<span id='coinPrice_" . $row["id"] . "'></span>";
         echo "</td>";
         echo "<td>" . $row["entry_price"] . "</td>";
+        echo "<td>" . $row["quantity"] . "</td>";
+        echo "<td id='change_" . $row["id"] . "'></td>";
+        echo "<td id='pl_row" . $row["id"] . "'></td>";
         echo "<td>" . $row["first_target"] . "</td>";
         echo "<td>" . $row["second_target"] . "</td>";
         echo "<td>" . $row["stop_loss"] . "</td>";
@@ -117,6 +126,13 @@ if ($result->num_rows > 0) {
                         document.getElementById('coinPrice_" . $row["id"] . "').parentNode.parentNode.style.color = 'red';
                     }
                     document.getElementById('coinPrice_" . $row["id"] . "').innerText = parseFloat(data_" . $row["id"] . ".p).toFixed(6);
+
+                    // Calculate and update % Change and P&L
+                    coinPrice_" . $row["id"] . " = parseFloat(data_" . $row["id"] . ".p);
+                    var change_" . $row["id"] . " = ((coinPrice_" . $row["id"] . " - " . $entryPrice . ") / " . $entryPrice . ") * 100;
+                    var pl_row" . $row["id"] . " = (coinPrice_" . $row["id"] . " - " . $entryPrice . ") * " . $row["quantity"] . ";
+                    document.getElementById('change_" . $row["id"] . "').innerText = change_" . $row["id"] . ".toFixed(2) + '%';
+                    document.getElementById('pl_row" . $row["id"] . "').innerText = pl_row" . $row["id"] . ".toFixed(6) + ' $';
                 };
             </script>";
     }

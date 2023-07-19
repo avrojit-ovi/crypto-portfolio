@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $coinName = sanitizeInput($_POST["coinName"]);
     $cSymbol = sanitizeInput($_POST["cSymbol"]);
     $entryPrice = sanitizeInput($_POST["entryPrice"]);
+    $quantity = sanitizeInput($_POST["quantity"]);
     $firstTarget = sanitizeInput($_POST["firstTarget"]);
     $secondTarget = sanitizeInput($_POST["secondTarget"]);
     $stopLoss = sanitizeInput($_POST["stopLoss"]);
@@ -14,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once('database.php');
 
     // Prepare the SQL statement to update the record
-    $sql = "UPDATE cryptotable SET coin_name='$coinName', c_symbol='$cSymbol', entry_price='$entryPrice',
+    $sql = "UPDATE cryptotable SET coin_name='$coinName', c_symbol='$cSymbol', entry_price='$entryPrice', quantity='$quantity',
             first_target='$firstTarget', second_target='$secondTarget', stop_loss='$stopLoss' WHERE id=$id";
 
     // Check if the update is successful

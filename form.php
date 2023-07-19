@@ -17,7 +17,7 @@ if (!isset($_SESSION['username'])) {
 
 <?php
 // Define variables and set to empty values
-$coinName = $cSymbol = $entryPrice = $firstTarget = $secondTarget = $stopLoss = "";
+$coinName = $cSymbol = $entryPrice = $quantity = $firstTarget = $secondTarget = $stopLoss = "";
 
 // Function to clean user input
 function sanitizeInput($data) {
@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $coinName = sanitizeInput($_POST["coinName"]);
     $cSymbol = sanitizeInput($_POST["cSymbol"]);
     $entryPrice = sanitizeInput($_POST["entryPrice"]);
+    $quantity = sanitizeInput($_POST["quantity"]);
     $firstTarget = sanitizeInput($_POST["firstTarget"]);
     $secondTarget = sanitizeInput($_POST["secondTarget"]);
     $stopLoss = sanitizeInput($_POST["stopLoss"]);
@@ -40,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require_once('database.php');
 
     // Prepare the SQL statement to insert data into the table
-    $sql = "INSERT INTO cryptotable (coin_name, c_symbol, entry_price, first_target, second_target, stop_loss)
-            VALUES ('$coinName', '$cSymbol', '$entryPrice', '$firstTarget', '$secondTarget', '$stopLoss')";
+    $sql = "INSERT INTO cryptotable (coin_name, c_symbol, entry_price, quantity, first_target, second_target, stop_loss)
+            VALUES ('$coinName', '$cSymbol', '$entryPrice', '$quantity', '$firstTarget', '$secondTarget', '$stopLoss')";
 
     // Check if the insertion is successful
     if ($conn->query($sql) === TRUE) {
@@ -70,6 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <label for="entryPrice">Entry Price:</label>
     <input type="text" name="entryPrice" required><br><br>
+
+    <label for="quantity">Quantity:</label>
+    <input type="text" name="quantity" required><br><br>
 
     <label for="firstTarget">First Target:</label>
     <input type="text" name="firstTarget" required><br><br>
