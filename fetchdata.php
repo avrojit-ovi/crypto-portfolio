@@ -51,6 +51,41 @@ if (!isset($_SESSION['username'])) {
     <a href="logout.php"><input type="button" class="btn btn-info" value="Logout"></a><br><br>
 
 
+
+<!-- p&l div card start here -->
+<br><br>
+<div class="row">
+    <div class="col-sm-2">
+        <div id="plmdiv" class="card text-white bg-info">
+            <div class="card-header">
+                <center>Total P&L (%)</center>
+            </div>
+            <div class="card-body">
+                <center>
+                    <!-- Update the innerHTML here -->
+                    <p id="totalPLPercent" class="card-text">Calculating...</p>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div id="plddiv" class="card text-white bg-info">
+            <div class="card-header">
+                <center>Total P&L ($)</center>
+            </div>
+            <div class="card-body">
+                <center>
+                    <!-- Update the innerHTML here -->
+                    <p id="totalPL" class="card-text">Calculating...</p>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+<!-- p&l div card end here -->
+
+
    <?php require_once('./includes/modals/addmodal.php') ?>
 
     <?php
@@ -165,11 +200,68 @@ if (!isset($_SESSION['username'])) {
     } else {
         echo "No data available in the table.";
     }
+
+        
     
     // Close the database connection
     $conn->close();
+
+  
+
+   
+
     ?>
     <?php require_once('includes/bootstrap-js.php'); ?>
+
+
+    <script>
+    // Function to calculate the total P&L once all coin prices are displayed
+    function calculateTotalPL() {
+        const plElements = document.querySelectorAll('td[id^="pl_row"]');
+        const changeElements = document.querySelectorAll('td[id^="change_"]');
+        let totalPL = 0;
+        let totalChange = 0;
+        let allPricesDisplayed = true;
+
+        plElements.forEach((plElement, index) => {
+            const changeText = changeElements[index].innerText;
+            if (!plElement.textContent.includes('$') || !changeText.includes('%')) {
+                allPricesDisplayed = false;
+                return;
+            }
+
+            totalPL += parseFloat(plElement.textContent.replace(' $', ''));
+            totalChange += parseFloat(changeText.replace('%', ''));
+        });
+
+        if (allPricesDisplayed) {
+            const totalPLText = `$ ${totalPL.toFixed(6)}`;
+            document.getElementById('totalPL').textContent = totalPLText;
+
+            const totalPLPercentText = `${totalChange.toFixed(2)}%`;
+            document.getElementById('totalPLPercent').textContent = totalPLPercentText;
+
+            // Update the class of the div based on the value of totalChange
+            const plmdiv = document.getElementById('plmdiv');
+            if (totalChange >= 0) {
+                plmdiv.className = 'card text-white bg-success';
+                plddiv.className = 'card text-white bg-success';
+            } else {
+                plmdiv.className = 'card text-white bg-danger';
+                plddiv.className = 'card text-white bg-danger';
+            }
+        } else {
+            document.getElementById('totalPL').textContent = 'calculating...';
+            document.getElementById('totalPLPercent').textContent = 'calculating...';
+            document.getElementById('plmdiv').className = 'card text-white bg-info'; // Reset the class to default
+            document.getElementById('plddiv').className = 'card text-white bg-info'; // Reset the class to default
+        }
+    }
+
+    // Call the calculateTotalPL function initially and every 60 milliseconds 
+    calculateTotalPL();
+    setInterval(calculateTotalPL, 60); // in 60 milliseconds 
+</script>
     
 </body>
 </html>
