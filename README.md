@@ -61,7 +61,7 @@ This Crypto Trade Tracking Portfolio Management Software is developed and owned 
 Contact Information:
 - Phone: +8801970018651
 - Email: avrojit.chy@gmail.com
-- Facebook: [Avrojit Ovi](www.facebook.com/avrojit.ovi)
+- Facebook: [www.facebook.com/avrojit.ovi](www.facebook.com/avrojit.ovi)
 - Telegram: [t.me.avrojitovi](https://t.me/avrojitovi)
 
 © [Ovi Chowdhury](www.facebook.com/avrojit.ovi)
