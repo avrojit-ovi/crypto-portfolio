@@ -3,16 +3,76 @@
 
 <!-- Modal -->
 <div class="modal right fade" id="addCoinModal" tabindex="-1" aria-labelledby="addCoinModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="true">
-  <div class="modal-dialog modal-side modal-bottom-left">
+  <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addCoinModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="addCoinModalLabel">Add Coin Data</h5>
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         
 <!-- form code start here -->
-<?php require_once('./form.php'); ?>
+<?php
+
+
+// Check if the user is not logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to the login page
+    header("Location: ../../login.php");
+    exit();
+}
+?>
+
+
+<?php
+// Define variables and set to empty values
+$coinName = $cSymbol = $entryPrice = $quantity = $firstTarget = $secondTarget = $stopLoss = "";
+
+// Function to clean user input
+function sanitizeInput($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate and sanitize the input fields
+    $coinName = sanitizeInput($_POST["coinName"]);
+    $cSymbol = sanitizeInput($_POST["cSymbol"]);
+    $entryPrice = sanitizeInput($_POST["entryPrice"]);
+    $quantity = sanitizeInput($_POST["quantity"]);
+    $firstTarget = sanitizeInput($_POST["firstTarget"]);
+    $secondTarget = sanitizeInput($_POST["secondTarget"]);
+    $stopLoss = sanitizeInput($_POST["stopLoss"]);
+   
+
+    require_once('database.php');
+
+    // Prepare the SQL statement to insert data into the table
+    $sql = "INSERT INTO cryptotable (coin_name, c_symbol, entry_price, quantity, first_target, second_target, stop_loss)
+            VALUES ('$coinName', '$cSymbol', '$entryPrice', '$quantity', '$firstTarget', '$secondTarget', '$stopLoss')";
+
+    // Check if the insertion is successful
+    if ($conn->query($sql) === TRUE) {
+         // Show alert modal
+         echo "<script>
+         alert('Coin added successfully!');
+         window.location.href = '{$baseURL}fetchdata.php';
+     </script>";
+        exit(); // Ensure no more code is executed after the redirect
+    } else {
+        echo "Error inserting data: " . $conn->error;
+    }
+
+
+    
+    // Close the database connection
+   
+}
+?>
+
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <!--Coin Name input -->
@@ -55,10 +115,19 @@
   <div class="form-outline mb-4">
     <input type="text" id="form5Example1" class="form-control" name="stopLoss" />
     <label class="form-label" for="stopLoss">Stop Loss</label>
-  </div>
+  </div> 
+  
+<!--Coin Name input -->
+<div class="form-outline mb-4">
+    <input type="datetime-local" id="dateNtime" class="form-control" name="dateNtime" disabled>
+    <label class="form-label" for="dateNtime">Date and Time:</label>
+</div>
   
 
-
+<!-- Input for Date and Time -->
+   
+   
+    
 
   <!-- Submit button -->
   
@@ -77,3 +146,28 @@
   </div>
 </div>
 <!-- modal code end here -->
+
+<script>
+// Function to format the date and time with Bangladesh timezone (GMT+6)
+function formatDate(date) {
+    const padZero = (num) => (num < 10 ? '0' + num : num);
+    const year = date.getFullYear();
+    const month = padZero(date.getMonth() + 1);
+    const day = padZero(date.getDate());
+    const hours = padZero(date.getHours());
+    const minutes = padZero(date.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+}
+
+// Get the input field
+const datetimeInput = document.getElementById("dateNtime");
+
+// Set the initial value
+datetimeInput.value = formatDate(new Date());
+
+// Update the value every minute to show the current date and time in Bangladesh timezone
+setInterval(() => {
+    datetimeInput.value = formatDate(new Date());
+}, 60000); // 60000 milliseconds = 1 minute
+</script>
+

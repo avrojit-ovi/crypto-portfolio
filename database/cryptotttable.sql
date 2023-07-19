@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2023 at 01:09 AM
+-- Generation Time: Jul 19, 2023 at 11:38 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -32,21 +32,23 @@ CREATE TABLE `cryptotable` (
   `coin_name` varchar(255) DEFAULT NULL,
   `c_symbol` varchar(255) DEFAULT NULL,
   `entry_price` varchar(255) DEFAULT NULL,
+  `quantity` varchar(255) NOT NULL,
   `first_target` varchar(255) DEFAULT NULL,
   `second_target` varchar(255) DEFAULT NULL,
-  `stop_loss` varchar(255) DEFAULT NULL
+  `stop_loss` varchar(255) DEFAULT NULL,
+  `dateNtime` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cryptotable`
 --
 
-INSERT INTO `cryptotable` (`id`, `coin_name`, `c_symbol`, `entry_price`, `first_target`, `second_target`, `stop_loss`) VALUES
-(1, 'FIDA', 'fidausdt', '1234', '2345', '3456', '4567'),
-(10, 'PHA', 'phausdt', '1234', '2345', '3456', '4567'),
-(12, 'BITCOIN', 'btcusdt', '1234', '2345', '1111', '4567'),
-(13, 'ETH', 'ethusdt', '1234', '2345', '3456', '0000'),
-(14, 'AUDIO', 'audiousdt', '000', '0000', '0000', '0000');
+INSERT INTO `cryptotable` (`id`, `coin_name`, `c_symbol`, `entry_price`, `quantity`, `first_target`, `second_target`, `stop_loss`, `dateNtime`) VALUES
+(1, 'FIDA', 'fidausdt', '0.2437', '90.9', '0.35', '0', '0.20', '0000-00-00 00:00:00'),
+(12, 'BITCOIN', 'btcusdt', '1234', '1', '2345', '1111', '4567', '0000-00-00 00:00:00'),
+(13, 'ETH', 'ethusdt', '1234', '500', '2345', '3456', '0000', '0000-00-00 00:00:00'),
+(15, 'PHA', 'phausdt', '0.1043', '96', '0.1200', '0', '0.0800', '0000-00-00 00:00:00'),
+(16, 'arpa', 'arpausdt', '0.1043', '100', '0.1200', '45', '11', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -95,7 +97,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cryptotable`
 --
 ALTER TABLE `cryptotable`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `users`

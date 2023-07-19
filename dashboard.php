@@ -40,7 +40,8 @@ $conn->close();
 </head>
 <body>
     <h2>Welcome, <?php echo $name; ?></h2>
-    <p>This is the dashboard page. Only logged-in users can access this page.</p>
+    <center><h1>খালি ড্যাশবোর্ড দেখে Heart Attact করবেন না, কাজ এখনো অনেক বাকি আছে।  </h1></center>
+    <p>This is the dashboard page.  .</p>
     <a href="fetchdata.php"><input type="button" value="Trade Tracking Table"></a>
     <a href="logout.php"><input type="button" value="Logout"></a>
 </body>

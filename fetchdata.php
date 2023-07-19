@@ -44,7 +44,10 @@ if (!isset($_SESSION['username'])) {
 </head>
 <body>
     <br>
-    <a type="button" class="btn btn-info" data-mdb-toggle="modal" data-mdb-target="#addCoinModal">ADD COIN</a>
+   
+    <button type="button" class="btn btn-primary btn-floating btn-lg" data-mdb-toggle="modal" data-mdb-target="#addCoinModal" title="add coin data">
+    <i class="fas fa-bitcoin-sign"></i>
+</button>
     <a href="logout.php"><input type="button" class="btn btn-info" value="Logout"></a><br><br>
 
 
@@ -73,14 +76,14 @@ if (!isset($_SESSION['username'])) {
             echo "Error deleting record: " . $conn->error;
         }
     }
-
+   
     // Prepare the SQL statement to fetch data from the table
     $sql = "SELECT * FROM cryptotable";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         echo "<table class='table table-hover table-bordered'>";
-        echo "<tr><th>ID</th><th>Coin Name</th><th>Coin Symbol</th><th>Coin Price</th><th>Entry Price</th><th>Coin Quantity</th><th>% Change</th><th>P&L</th><th>First Target</th><th>Second Target</th><th>Stop Loss</th><th>Actions</th></tr>";
+        echo "<tr><th>ID</th><th>Coin Name</th><th>Coin Symbol</th><th>Coin Price</th><th>Entry Price</th><th>Coin Quantity</th><th>UP&Downs</th><th>Profit & Loss</th><th>First Target</th><th>Second Target</th><th>Stop Loss</th><th>Actions</th></tr>";
 
         // Loop through each row of data
         while ($row = $result->fetch_assoc()) {
@@ -113,8 +116,12 @@ if (!isset($_SESSION['username'])) {
             echo "<td>" . $row["second_target"] . "</td>";
             echo "<td>" . $row["stop_loss"] . "</td>";
             echo "<td>";
-            echo "<a class='edit-btn btn btn-success' href='edit.php?id=" . $row["id"] . "'><i class='fas fa-pen-to-square'></i></a> ";
-            echo "<a class='delete-btn btn btn-danger' href='?delete_id=" . $row["id"] . "' onclick='return confirm(\"Are you sure you want to delete this record?\")'><i class='far fa-trash-can'></i></a>";
+            echo "<a  href='edit.php?id=" . $row["id"] . "'><button type='button' class='btn btn-outline-success btn-floating' data-mdb-ripple-color='dark'>
+            <i class='far fa-pen-to-square'></i></button></a> ";
+           
+          
+            echo "<a  href='?delete_id=" . $row["id"] . "' onclick='return confirm(\"Are you sure you want to delete this record?\")'><button type='button' class='btn btn-outline-danger btn-floating' data-mdb-ripple-color='dark'>
+            <i class='fas fa-trash-alt'></i></button></a>";
             echo "</td>";
             echo "</tr>";
             echo "<script>

@@ -3,6 +3,7 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "cryptotttable";
+$baseURL = "http://localhost/crypto-portfolio/";
 
 // Create a new connection
 $conn = new mysqli($servername, $username, $password, $dbname);
