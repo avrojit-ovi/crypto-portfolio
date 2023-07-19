@@ -71,7 +71,7 @@ if (!isset($_SESSION['username'])) {
     <div class="col-sm-2">
         <div id="plddiv" class="card text-white bg-info">
             <div class="card-header">
-                <center>Total P&L ($)</center>
+                <center>Total Earinng ($)</center>
             </div>
             <div class="card-body">
                 <center>
