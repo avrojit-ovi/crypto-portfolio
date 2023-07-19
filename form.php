@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 // Check if the user is not logged in
 if (!isset($_SESSION['username'])) {
@@ -8,12 +8,7 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Crypto Trade Tracking Table Data Form</title>
-</head>
-<body>
+
 
 <?php
 // Define variables and set to empty values
@@ -56,37 +51,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error inserting data: " . $conn->error;
     }
 
+
+    
     // Close the database connection
     $conn->close();
 }
 ?>
 
-<h2>CryptoTTTable Form</h2>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <label for="coinName">Coin Name:</label>
-    <input type="text" name="coinName" required><br><br>
 
-    <label for="cSymbol">Coin Symbol:</label>
-    <input type="text" name="cSymbol" required><br><br>
 
-    <label for="entryPrice">Entry Price:</label>
-    <input type="text" name="entryPrice" required><br><br>
 
-    <label for="quantity">Quantity:</label>
-    <input type="text" name="quantity" required><br><br>
 
-    <label for="firstTarget">First Target:</label>
-    <input type="text" name="firstTarget" required><br><br>
-
-    <label for="secondTarget">Second Target:</label>
-    <input type="text" name="secondTarget" required><br><br>
-
-    <label for="stopLoss">Stop Loss:</label>
-    <input type="text" name="stopLoss" required><br><br>
-
-    <input type="submit" value="Submit">
-    <a type="button" href="fetchdata.php"><input type="button" value="close"></a>
-</form>
-
-</body>
-</html>
