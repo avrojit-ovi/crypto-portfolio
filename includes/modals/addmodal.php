@@ -2,8 +2,9 @@
 
 
 <!-- Modal -->
-<div class="modal right fade" id="addCoinModal" tabindex="-1" aria-labelledby="addCoinModalLabel" aria-hidden="true" data-mdb-backdrop="static" data-mdb-keyboard="true">
-  <div class="modal-dialog modal-dialog-centered ">
+
+<div class="modal fade" id="addCoinModal" aria-hidden="true" aria-labelledby="addCoinModalLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addCoinModalLabel">Add Coin Data</h5>
@@ -77,50 +78,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="coinName" />
-    <label class="form-label" for="coinName">Coin Name</label>
+    <input type="text" id="form5Example1" class="form-control" name="coinName" placeholder="Coin Name"/>
   </div>
   
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="cSymbol" />
-    <label class="form-label" for="cSymbol">Coin Symbol</label>
+    <input type="text" id="form5Example1" class="form-control" name="cSymbol" placeholder="Coin Symbol" />
   </div>
 
     <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="entryPrice" />
-    <label class="form-label" for="entryPrice">Entry Price</label>
+    <input type="text" id="form5Example1" class="form-control" name="entryPrice" placeholder="Entry Price"/>
   </div>
   
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="quantity" />
-    <label class="form-label" for="quantity">Coin Quantity</label>
+    <input type="text" id="form5Example1" class="form-control" name="quantity" placeholder="Coin Quantity"/>
   </div>
     
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="firstTarget" />
-    <label class="form-label" for="firstTarget">First Target</label>
+    <input type="text" id="form5Example1" class="form-control" name="firstTarget" placeholder="First Target"/>
+   
   </div>
     
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="secondTarget" />
-    <label class="form-label" for="secondTarget">Second Target</label>
+    <input type="text" id="form5Example1" class="form-control" name="secondTarget" placeholder="Second Target"/>
+    
   </div>
     
   <!--Coin Name input -->
   <div class="form-outline mb-4">
-    <input type="text" id="form5Example1" class="form-control" name="stopLoss" />
-    <label class="form-label" for="stopLoss">Stop Loss</label>
+    <input type="text" id="form5Example1" class="form-control" name="stopLoss" placeholder="Stop Loss"/>
+    
   </div> 
   
 <!--Coin Name input -->
 <div class="form-outline mb-4">
     <input type="datetime-local" id="dateNtime" class="form-control" name="dateNtime" disabled>
-    <label class="form-label" for="dateNtime">Date and Time:</label>
 </div>
   
 
